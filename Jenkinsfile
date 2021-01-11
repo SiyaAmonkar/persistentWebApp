@@ -30,7 +30,12 @@ pipeline {
         }
         stage('Deploy')
         {   steps{
-            deploy adapters: [tomcat8(credentialsId: '70028b46-d724-4557-b00e-111dd5eac392', path: '', url: 'http://ec2-18-208-192-104.compute-1.amazonaws.com:9090')], contextPath: 'Persistent', war: 'target/PersistentWebApp.war'
+             deploy adapters: [tomcat8(credentialsId: '70028b46-d724-4557-b00e-111dd5eac392', path: '', url: 'http://localhost:9090/Persistent')], contextPath: 'Persistent', war: 'target/PersistentWebApp.war'
+        }
+        }
+		stage('Display http url status')
+        {   steps{
+            sh '''curl -I \'http://localhost:9090/Persistent/\' | grep HTTP | head -1'''
         }
         }
     }
