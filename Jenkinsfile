@@ -41,7 +41,7 @@ pipeline {
 		stage('Display http url status')
         {   steps{
             sh '''curl -I \'http://localhost:9090/Persistent/index.html\' | grep HTTP | head -1'''
-			sh 'curl \'http://localhost:9090/persistent/version.html\''
+			sh 'curl \'http://localhost:9090/Persistent/version.html\''
         }
         }
     }
