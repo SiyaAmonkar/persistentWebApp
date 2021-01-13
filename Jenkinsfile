@@ -12,6 +12,10 @@ pipeline {
                 // Get some code from a GitHub repository
                 git 'https://github.com/SiyaAmonkar/persistentWebApp.git'
 				
+				 
+                // Create version.html
+                sh 'touch src/main/webapp/version.html'
+                sh 'echo "version1.0" > src/main/webapp/version.html'
 
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
@@ -36,7 +40,8 @@ pipeline {
         }
 		stage('Display http url status')
         {   steps{
-            sh '''curl -I \'http://localhost:9090/Persistent/\' | grep HTTP | head -1'''
+            sh '''curl -I \'http://localhost:9090/Persistent/index.html\' | grep HTTP | head -1'''
+			sh 'curl \'http://localhost:9090/persistent/version.html\''
         }
         }
     }
